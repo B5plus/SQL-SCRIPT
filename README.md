@@ -46,3 +46,13 @@
   background-image: none !important;
   box-shadow: none !important;
 }
+
+
+
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:hover,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:focus{
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
