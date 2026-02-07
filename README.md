@@ -1,10 +1,5 @@
-INSERT INTO B5_LOCATIONS (LOCATION_ID, LOCATION_NAME) VALUES (1, 'Accra');
-INSERT INTO B5_LOCATIONS (LOCATION_ID, LOCATION_NAME) VALUES (3, 'Tema');
-INSERT INTO B5_LOCATIONS (LOCATION_ID, LOCATION_NAME) VALUES (2, 'Kumasi');
-INSERT INTO B5_LOCATIONS (LOCATION_ID, LOCATION_NAME) VALUES (4, 'Pram-Pram,');
-
-
-/* Hide the page title region/header */
-.t-Body-title {
-  display: none !important;
-}
+SELECT FULL_NAME || ' (' || USERNAME || ')' AS display_value,
+       USER_ID                         AS return_value
+FROM   APP_USERS
+WHERE  STATUS = 'ACTIVE'
+ORDER  BY FULL_NAME;
