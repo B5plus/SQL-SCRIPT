@@ -56,3 +56,21 @@
   box-shadow: none !important;
 }
 
+
+
+/* ===== Remove Vista/UT style background #c5bbbb from topLevel containers ===== */
+.t-TreeNav .a-TreeView-node--topLevel ul,
+.t-TreeNav .a-TreeView-node--topLevel:is-collapsible > .a-TreeView-row,
+.t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top{
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* If the submenu container still shows a strip, force transparent on nested UL too */
+.t-TreeNav .a-TreeView-node--topLevel ul ul{
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+
