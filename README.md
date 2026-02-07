@@ -17,3 +17,32 @@
 #t_TreeNav .a-TreeView-row::after{
   content: none !important;
 }
+
+
+
+
+
+/* --- Child menu strip fix (submenu rows) --- */
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-hover,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-selected,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-focused{
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::before,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::after{
+  content: none !important;
+}
+
+/* Some builds paint the strip on the CONTENT inside child rows */
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-hover,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-selected,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-focused{
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
