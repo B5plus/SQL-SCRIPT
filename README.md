@@ -1,5 +1,10 @@
+/* ==========================================================
+   B5 THEME (APEX 19.2 Universal Theme)
+   Clean + Deduped + Fixed Nav Hover Grey Strip + Wider Nav
+   ========================================================== */
+
 /* =========================
-   B5 THEME VARIABLES
+   VARIABLES
    ========================= */
 :root{
   --b5-maroon:#A32C3C;
@@ -17,30 +22,31 @@
   --b5-radius:16px;
   --b5-radius-sm:12px;
 
-  /* NAV variables (merged here; removed duplicate :root) */
+  /* NAV */
   --nav-bg-top:#1b3b57;
   --nav-bg-bot:#142f47;
   --nav-text:#ffffff;
   --nav-muted:rgba(255,255,255,.78);
-  --nav-child:rgba(255,255,255,.90);
   --nav-hover:rgba(255,255,255,.10);
-  --nav-hover-strong:rgba(255,255,255,.14);
   --nav-active:rgba(255,255,255,.16);
-  --nav-child-bg:rgba(255,255,255,.06);
-  --nav-child-border:rgba(255,255,255,.10);
+
+  /* Wider nav (desktop) */
+  --b5-nav-width: 280px;
 }
 
+/* Body background */
 .t-Body{ background: var(--b5-bg) !important; }
 
-/* =========================
+/* ==========================================================
    HEADER
-   ========================= */
+   ========================================================== */
 .t-Header,
 .t-Header-container{
   background: linear-gradient(90deg, var(--b5-maroon), var(--b5-blue)) !important;
   border: 0 !important;
   box-shadow: 0 10px 24px rgba(15,23,42,.12) !important;
 }
+
 .t-Header-branding,
 .t-Header-navBar,
 .t-Header-controls{
@@ -48,6 +54,7 @@
   border: 0 !important;
   box-shadow: none !important;
 }
+
 .t-Header *{ color: var(--b5-white) !important; }
 
 .t-Header .t-Button,
@@ -63,26 +70,44 @@
   background: rgba(255,255,255,.14) !important;
 }
 
-/* =========================
-   SIDE NAV BASE
-   ========================= */
+/* ==========================================================
+   SIDE NAV WIDTH + BACKGROUND
+   ========================================================== */
+
+/* Try UT variable first (works on some builds) */
+.t-Body{
+  --ut-nav-width: var(--b5-nav-width);
+}
+
+/* Hard fallback for APEX 19.2 */
 .t-Body-nav{
   background: linear-gradient(180deg, var(--nav-bg-top), var(--nav-bg-bot)) !important;
   border-right: 0 !important;
   box-shadow: 8px 0 18px rgba(15,23,42,.10) !important;
+
+  width: var(--b5-nav-width) !important;
+  max-width: var(--b5-nav-width) !important;
+  flex: 0 0 var(--b5-nav-width) !important;
 }
 
-/* Base item box */
+/* ==========================================================
+   TREE NAV (remove grey strip + apply clean hover)
+   ========================================================== */
+
+/* Base row */
 .t-TreeNav .a-TreeView-content{
   display:flex;
   align-items:center;
   border-radius: 14px !important;
   margin: 6px 12px !important;
   padding: 12px 14px !important;
-  transition: background .15s ease, box-shadow .15s ease, transform .15s ease;
+  transition: background .15s ease, transform .15s ease, box-shadow .15s ease;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-/* Label + icon */
+/* Text + icons */
 .t-TreeNav .a-TreeView-label{
   font-size: 15px !important;
   font-weight: 800 !important;
@@ -104,29 +129,52 @@
   color: #fff !important;
 }
 
-/* Hover + Active */
+/* ---- REMOVE APEX GREY STRIP/OVERLAY STATES ---- */
+.t-TreeNav .a-TreeView-content.is-selected,
+.t-TreeNav .a-TreeView-content.is-hover,
+.t-TreeNav .a-TreeView-content.is-focused,
+.t-TreeNav .a-TreeView-node.is-focused > .a-TreeView-content,
+.t-TreeNav .a-TreeView-node:focus > .a-TreeView-content,
+.t-TreeNav .a-TreeView-node:focus-within > .a-TreeView-content{
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Pseudo overlays that often create the grey strip */
+.t-TreeNav .a-TreeView-content::before,
+.t-TreeNav .a-TreeView-content::after{
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* Hover + current */
 .t-TreeNav .a-TreeView-node:hover > .a-TreeView-content{
-  background: rgba(255,255,255,.10) !important;
+  background: var(--nav-hover) !important;
   transform: translateX(2px);
 }
 .t-TreeNav .a-TreeView-node.is-current > .a-TreeView-content,
 .t-TreeNav .a-TreeView-node.is-selected > .a-TreeView-content{
-  background: rgba(255,255,255,.16) !important;
+  background: var(--nav-active) !important;
   border-left: 4px solid var(--b5-maroon) !important;
   padding-left: 12px !important;
 }
 
-/* Logout highlight */
+/* Logout row highlight */
 .vms-logout .a-TreeView-content{
-  background: rgba(163,44,60,.22) !important;
-  border: 1px solid rgba(255,255,255,.25) !important;
+  background: rgba(163,44,60,.24) !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  border-radius: 14px !important;
 }
 .vms-logout .a-TreeView-label,
 .vms-logout .a-TreeView-icon{
-  color: #fff !important;
+  color:#fff !important;
+  font-weight: 900 !important;
 }
 
-/* Optional support if your template adds .apex-side-nav (kept but not relied on) */
+/* Optional support if template adds .apex-side-nav */
 .apex-side-nav .a-TreeView-label{ color: var(--nav-text) !important; }
 .apex-side-nav .a-TreeView-icon,
 .apex-side-nav .a-TreeView-content .fa,
@@ -138,34 +186,9 @@
   opacity: .95 !important;
 }
 
-/* =========================
-   REMOVE APEX BUILT-IN GREY BOXES (hover/focus)
-   ========================= */
-.t-TreeNav .a-TreeView-node > .a-TreeView-content{
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Focus states that often paint grey blocks */
-.t-TreeNav .a-TreeView-node.is-focused > .a-TreeView-content,
-.t-TreeNav .a-TreeView-node:focus > .a-TreeView-content,
-.t-TreeNav .a-TreeView-node:focus-within > .a-TreeView-content{
-  background: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Pseudo elements sometimes paint the grey overlay */
-.t-TreeNav .a-TreeView-content:before,
-.t-TreeNav .a-TreeView-content:after{
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-}
-
-/* =========================
+/* ==========================================================
    REGIONS / FORMS / BUTTONS
-   ========================= */
+   ========================================================== */
 .t-Region{
   background: var(--b5-card) !important;
   border: 1px solid var(--b5-border) !important;
@@ -218,16 +241,15 @@
   box-shadow: 0 12px 20px rgba(163,44,60,.18) !important;
 }
 .t-Button--hot:hover{ filter: brightness(.95); }
-
 .b5-blue-btn{
   background: var(--b5-blue) !important;
   border-color: var(--b5-blue) !important;
   color: #fff !important;
 }
 
-/* =========================
+/* ==========================================================
    REPORTS
-   ========================= */
+   ========================================================== */
 table.t-Report-report{ border-collapse: separate; border-spacing: 0; }
 
 .t-Report-colHead{
@@ -258,7 +280,7 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
 /* Helpers */
 .u-hidden{ display:none !important; }
 
-/* Inputs sizing */
+/* Input sizing */
 .t-Form-inputContainer input[type="text"],
 .t-Form-inputContainer input[type="tel"],
 .t-Form-inputContainer input[type="email"],
@@ -274,6 +296,8 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
   min-height: 92px !important;
   line-height: 22px !important;
 }
+
+/* Floating label tuning */
 .t-Form-fieldContainer--floatingLabel input,
 .t-Form-fieldContainer--floatingLabel select{
   padding-top: 22px !important;
@@ -288,9 +312,9 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
 }
 .t-Form-inputContainer .a-Button--calendar{ height: 44px !important; }
 
-/* =========================
+/* ==========================================================
    CLASSIC REPORT BUTTONS
-   ========================= */
+   ========================================================== */
 .b5-btn,
 .b5-action-btn{
   display:inline-flex;
@@ -336,9 +360,9 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
 }
 .b5-photo-btn:hover{ filter: brightness(.96); transform: translateY(-1px); }
 
-/* =========================
-   STATUS BADGES (deduped)
-   ========================= */
+/* ==========================================================
+   STATUS BADGES
+   ========================================================== */
 .b5-badge{
   display:inline-block;
   padding: 6px 10px;
@@ -395,12 +419,33 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
   color: #A32C3C;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* ==========================================================
+   RESPONSIVE (Mobile)
+   ========================================================== */
 @media (max-width: 768px){
+
   .t-Header, .t-Header-container{ box-shadow:none !important; }
   .t-Region{ border-radius: 14px !important; }
+
+  /* Mobile nav width (drawer) */
+  .t-Body-nav{
+    width: 260px !important;
+    max-width: 260px !important;
+    flex: 0 0 260px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Ensure drawer can appear */
+  .t-Body--navExpanded .t-Body-nav,
+  .t-Body--navExpanded .t-Body-content,
+  .t-Body--navExpanded .t-Body-title{
+    transform: none !important;
+  }
+
+  .t-TreeNav .a-TreeView-content{
+    margin: 6px 10px !important;
+  }
 
   .t-Form-inputContainer input,
   .t-Form-inputContainer select,
@@ -411,6 +456,7 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
 
   .t-Report-reportWrap{ overflow-x:auto; }
   .t-Report-cell, .t-Report-colHead{ white-space: nowrap; }
+
   .t-Button{ width: 100%; justify-content:center; }
 
   /* Floating label spacing on mobile */
@@ -435,29 +481,9 @@ a:hover{ color: var(--b5-blue); text-decoration: underline; }
     opacity: .70;
   }
 
-  /* Smaller buttons in table on mobile */
+  /* Smaller table buttons on mobile */
   .b5-btn, .b5-action-btn{
     padding: 7px 10px;
-    fon/* ===== Mobile: ensure side nav drawer is visible when opened ===== */
-@media (max-width: 768px){
-
-  /* APEX uses a drawer overlay; make sure it can appear */
-  .t-Body-nav{
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* When drawer is open, APEX adds classes to body; ensure nav is not pushed behind */
-  .t-Body--navExpanded .t-Body-nav,
-  .t-Body--showSideNav .t-Body-nav,
-  .t-Body--navExpanded .t-Body-title,
-  .t-Body--navExpanded .t-Body-content{
-    transform: none !important;
-  }
-
-  /* Keep menu readable */
-  .t-TreeNav .a-TreeView-content{
-    margin: 6px 10px !important;
+    font-size: 13px;
   }
 }
-
