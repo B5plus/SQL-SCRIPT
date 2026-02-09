@@ -128,6 +128,11 @@
   color: var(--nav-muted) !important;
   opacity: .95 !important;
 }
+/* Extra safety if icons render as a-Icon */
+.apex-side-nav .a-Icon{
+  color: var(--nav-muted) !important;
+  opacity: .95 !important;
+}
 
 /* ========================= REMOVE APEX BUILT-IN GREY BOXES (hover/focus) ========================= */
 .t-TreeNav .a-TreeView-node > .a-TreeView-content{
@@ -141,13 +146,50 @@
   box-shadow: none !important;
   outline: none !important;
 }
-.t-TreeNav .a-TreeView-content:before,
 
+/* ========================= KILL GREY STRIP (TreeView row states) ========================= */
+#t_TreeNav .a-TreeView-row,
+#t_TreeNav .a-TreeView-row.is-hover,
+#t_TreeNav .a-TreeView-row.is-selected,
+#t_TreeNav .a-TreeView-row.is-focused{
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+#t_TreeNav .a-TreeView-row::before,
+#t_TreeNav .a-TreeView-row::after{
+  content: none !important;
+}
 
+/* Child menu strip fix (submenu rows) */
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-hover,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-selected,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-focused{
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::before,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::after{
+  content: none !important;
+}
 
+/* Some builds paint the strip on the CONTENT inside child rows */
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content{
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:hover,
+#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:focus{
+  background: transparent !important;
+  box-shadow: none !important;
+}
 
-
-/* ===== Remove Vista/UT style background #c5bbbb from topLevel containers ===== */
+/* Remove Vista/UT style background from topLevel containers (DEDUPED) */
 .t-TreeNav .a-TreeView-node--topLevel ul,
 .t-TreeNav .a-TreeView-node--topLevel:is-collapsible > .a-TreeView-row,
 .t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top{
@@ -155,18 +197,19 @@
   background-image: none !important;
   box-shadow: none !important;
 }
-
-/* If the submenu container still shows a strip, force transparent on nested UL too */
 .t-TreeNav .a-TreeView-node--topLevel ul ul{
   background-color: transparent !important;
   background-image: none !important;
 }
 
-
-.t-TreeNav .a-TreeView-content:after{
+/* Strong override (ID-independent) */
+html body .t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top,
+html body .t-TreeNav .a-TreeView-node--topLevel ul,
+html body .t-TreeNav .a-TreeView-node--topLevel.is-collapsible > .a-TreeView-row{
   background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
   box-shadow: none !important;
-  border: 0 !important;
 }
 
 /* ========================= REGIONS / FORMS / BUTTONS ========================= */
@@ -307,6 +350,7 @@ a:hover{
   line-height: 1;
   white-space: nowrap;
 }
+
 .b5-btn-maroon{
   background: #A32C3C;
   border-color: #A32C3C;
@@ -314,6 +358,7 @@ a:hover{
   box-shadow: 0 10px 18px rgba(163,44,60,.18);
 }
 .b5-btn-maroon:hover{ filter: brightness(.95); transform: translateY(-1px); }
+
 .b5-btn-blue{
   background: #29527D;
   border-color: #29527D;
@@ -321,12 +366,14 @@ a:hover{
   box-shadow: 0 10px 18px rgba(41,82,125,.18);
 }
 .b5-btn-blue:hover{ filter: brightness(.95); transform: translateY(-1px); }
+
 .b5-checkout-btn{
   background: linear-gradient(90deg, #A32C3C, #29527D);
   color:#fff !important;
   box-shadow: 0 10px 18px rgba(15,23,42,.16);
 }
 .b5-checkout-btn:hover{ filter: brightness(.96); transform: translateY(-1px); }
+
 .b5-photo-btn{
   background: #29527D;
   color:#fff !important;
@@ -349,13 +396,147 @@ a:hover{
 .b5-badge-yellow{ background: rgba(245,158,11,.16); border-color: rgba(245,158,11,.38); color: #7c4a00; }
 .b5-badge-red{ background: rgba(163,44,60,.14); border-color: rgba(163,44,60,.38); color: #A32C3C; }
 .b5-badge-gray{ background: rgba(100,116,139,.12); border-color: rgba(100,116,139,.25); color: #334155; }
+
 .b5-status-in{ background: rgba(41,82,125,.14); border-color: rgba(41,82,125,.35); color: #29527D; }
 .b5-status-out{ background: rgba(163,44,60,.14); border-color: rgba(163,44,60,.35); color: #A32C3C; }
+
 .b5-ack-green{ background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.35); color: #0f5132; }
 .b5-ack-yellow{ background: rgba(245,158,11,.16); border-color: rgba(245,158,11,.38); color: #7c4a00; }
 .b5-ack-red{ background: rgba(163,44,60,.14); border-color: rgba(163,44,60,.38); color: #A32C3C; }
 
-/* ========================= RESPONSIVE ========================= */
+/* ========================= B5 DASHBOARD (VMS) ========================= */
+.b5dash{
+  --m:#A32C3C;
+  --b:#29527D;
+  --w:#fff;
+  --bg:#f6f8fc;
+  --card:#ffffff;
+  --border:#e6e8ef;
+  --text:#0f172a;
+  --muted:#64748b;
+  --radius:18px;
+  --radius2:14px;
+  padding: 10px;
+}
+
+.b5dash__title{ margin: 4px 6px 14px; }
+.b5dash__heading{ font-size: 20px; font-weight: 900; color: var(--text); }
+.b5dash__sub{ color: var(--muted); font-weight: 600; margin-top: 3px; }
+
+.b5dash__grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 0 6px 14px;
+}
+
+.b5card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+  box-shadow: 0 10px 26px rgba(15,23,42,.06);
+  position: relative;
+  overflow: hidden;
+}
+.b5card:before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height:4px;
+  background: linear-gradient(90deg, var(--m), var(--b));
+}
+.b5card--maroon:before{ background: var(--m); }
+.b5card--blue:before{ background: var(--b); }
+
+.b5card__label{
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.b5card__value{
+  font-size: 30px;
+  font-weight: 950;
+  color: var(--text);
+  margin-top: 6px;
+  line-height: 1.05;
+}
+.b5card__hint{
+  color: var(--muted);
+  font-weight: 650;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.b5dash__lists{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 14px;
+  margin: 0 6px;
+}
+.b5panel{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 26px rgba(15,23,42,.06);
+  overflow: hidden;
+}
+.b5panel__head{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(163,44,60,.08), rgba(41,82,125,.08));
+}
+.b5panel__title{ font-weight: 950; color: var(--text); }
+.b5panel__body{ padding: 12px 14px 14px; }
+.b5panel--danger .b5panel__head{ background: rgba(163,44,60,.10); }
+
+.b5pill{
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  border: 1px solid rgba(100,116,139,.25);
+  background: rgba(100,116,139,.10);
+  color: #334155;
+}
+.b5pill--maroon{
+  border-color: rgba(163,44,60,.35);
+  background: rgba(163,44,60,.12);
+  color: var(--m);
+}
+.b5pill--blue{
+  border-color: rgba(41,82,125,.35);
+  background: rgba(41,82,125,.12);
+  color: var(--b);
+}
+.b5pill--danger{
+  border-color: rgba(163,44,60,.40);
+  background: rgba(163,44,60,.14);
+  color: var(--m);
+}
+
+.b5dash__region-note{
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+@media (max-width: 1200px){
+  .b5dash__grid{ grid-template-columns: repeat(3, minmax(160px, 1fr)); }
+}
+@media (max-width: 768px){
+  .b5dash__grid{ grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+  .b5dash__lists{ grid-template-columns: 1fr; }
+  .b5card__value{ font-size: 26px; }
+}
+
+/* ========================= RESPONSIVE (general) ========================= */
 @media (max-width: 768px){
   .t-Header, .t-Header-container{ box-shadow:none !important; }
   .t-Region{ border-radius: 14px !important; }
@@ -393,106 +574,19 @@ a:hover{
     opacity: .70;
   }
 
-  /* Smaller buttons in table on mobile (FIXED: removed broken "fon/*") */
+  /* Smaller buttons in table on mobile */
   .b5-btn, .b5-action-btn{
     padding: 7px 10px;
     font-size: 13px;
   }
 
-  /* Mobile nav: DO NOT force transforms; only small spacing */
+  /* Mobile nav spacing */
   .t-TreeNav .a-TreeView-content{
     margin: 6px 10px !important;
   }
 }
 
-
-/* ===== KILL GREY STRIP (APEX TreeView row states) ===== */
-#t_TreeNav .a-TreeView-row,
-#t_TreeNav .a-TreeView-row.is-hover,
-#t_TreeNav .a-TreeView-row.is-selected,
-#t_TreeNav .a-TreeView-row.is-focused{
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* If strip is drawn via pseudo elements */
-#t_TreeNav .a-TreeView-row::before,
-#t_TreeNav .a-TreeView-row::after{
-  content: none !important;
-}
-
-
-/* --- Child menu strip fix (submenu rows) --- */
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-hover,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-selected,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row.is-focused{
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::before,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-row::after{
-  content: none !important;
-}
-
-/* Some builds paint the strip on the CONTENT inside child rows */
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-hover,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-selected,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content.is-focused{
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-
-
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:hover,
-#t_TreeNav.t-TreeNav--styleA .a-TreeView ul ul .a-TreeView-content a:focus{
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-
-
-
-
-
-/* ===== Remove Vista/UT style background #c5bbbb from topLevel containers ===== */
-.t-TreeNav .a-TreeView-node--topLevel ul,
-.t-TreeNav .a-TreeView-node--topLevel:is-collapsible > .a-TreeView-row,
-.t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top{
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-/* If the submenu container still shows a strip, force transparent on nested UL too */
-.t-TreeNav .a-TreeView-node--topLevel ul ul{
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-
-
-/* Force override Vista/TreeNav topLevel background (ID-independent) */
-html body .t-TreeNav .a-TreeView-node--topLevel .a-TreeView-row.is-current--top,
-html body .t-TreeNav .a-TreeView-node--topLevel ul,
-html body .t-TreeNav .a-TreeView-node--topLevel.is-collapsible > .a-TreeView-row{
-  background-color: transparent !important;
-  background-image: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-
-
-/* ===== Desktop collapsed side nav: icons-only width ===== */
+/* ========================= Desktop collapsed side nav: icons-only width ========================= */
 @media (min-width: 769px){
   .apex-side-nav.js-navCollapsed .t-Body-nav,
   .apex-side-nav.js-navCollapsed .t-Body-nav .t-TreeNav{
@@ -501,21 +595,17 @@ html body .t-TreeNav .a-TreeView-node--topLevel.is-collapsible > .a-TreeView-row
     flex: 0 0 70px !important;
   }
 
-  /* Keep icons centered when collapsed */
   .apex-side-nav.js-navCollapsed .t-TreeNav .a-TreeView-content{
     justify-content: center !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  /* Hide labels in collapsed mode */
   .apex-side-nav.js-navCollapsed .t-TreeNav .a-TreeView-label{
     display: none !important;
   }
 
-  /* Remove extra margin so icons align nicely */
   .apex-side-nav.js-navCollapsed .t-TreeNav .a-TreeView-icon{
     margin-right: 0 !important;
   }
 }
-
